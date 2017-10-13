@@ -130,15 +130,27 @@
                     android:layout_width="0dp"
                     android:layout_height="fill_parent"
                     android:layout_weight="1"></RelativeLayout>
+
                 <Button
-                    android:id="@+id/email_sign_in_button"
-                    style="?android:textAppearanceSmall"
-                    android:layout_width="0dp"
+                    android:id="@+id/signin"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
-                    android:layout_weight="8"
-                    android:text="@string/action_sign_in"
-                    android:textStyle="bold" />
+                    android:layout_weight="1"
+                    android:text="@string/action_sign_in_short"
+                    android:textStyle="bold"
+                    android:textColor="?android:attr/textColorTertiary"
+                    />
+
+                <Button
+                    android:text="@string/action_register"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/register"
+                    android:layout_weight="1"
+                    android:textStyle="bold"
+                    android:onClick="gotoReg"
+                    android:textColor="?android:attr/textColorTertiary" />
+
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="fill_parent"
