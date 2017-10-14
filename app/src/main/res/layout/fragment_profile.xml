@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.juwan.orlandowaves.Profile"
+    tools:context="com.example.juwan.orlandowaves.Fragments.ProfileFragment"
     android:orientation="vertical">
 
     <!-- TODO: Update blank fragment layout -->

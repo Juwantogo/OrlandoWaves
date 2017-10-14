@@ -1,4 +1,4 @@
-package com.example.juwan.orlandowaves;
+package com.example.juwan.orlandowaves.ActivityClass;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -10,10 +10,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import java.util.HashMap;
+import com.example.juwan.orlandowaves.R;
+import com.example.juwan.orlandowaves.toAccess.RegisterUserClass;
 
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.L;
-import static com.example.juwan.orlandowaves.R.id.register;
+import java.util.HashMap;
 
 public class Register extends AppCompatActivity implements View.OnClickListener{
     private EditText editTextFname;

@@ -1,9 +1,14 @@
-package com.example.juwan.orlandowaves;
+package com.example.juwan.orlandowaves.toAccess;
 
 
 import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+
+import com.example.juwan.orlandowaves.Fragments.ProfileFragment;
+import com.example.juwan.orlandowaves.Fragments.ShopFragment;
+import com.example.juwan.orlandowaves.Fragments.StartFragment;
+import com.example.juwan.orlandowaves.Fragments.TicketsFragment;
 
 /**
  * Created by Juwan on 10/12/2017.
@@ -23,13 +28,13 @@ public class FragmentPagerAdapter extends android.support.v4.app.FragmentPagerAd
     @Override
     public Fragment getItem(int position) {
         if (position == 0) {
-            return new Start();
+            return new StartFragment();
         } else if (position == 1){
-            return new Shop();
+            return new ShopFragment();
         } else if (position == 2){
-            return new Tickets();
+            return new TicketsFragment();
         } else {
-            return new Profile();
+            return new ProfileFragment();
         }
     }
 
@@ -47,11 +52,11 @@ public class FragmentPagerAdapter extends android.support.v4.app.FragmentPagerAd
             case 0:
                 return "Home";//start xml and java
             case 1:
-                return "Shop";
+                return "ShopFragment";
             case 2:
-                return "Tickets";
+                return "TicketsFragment";
             case 3:
-                return "Profile";
+                return "ProfileFragment";
             default:
                 return null;
         }

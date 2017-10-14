@@ -1,4 +1,4 @@
-package com.example.juwan.orlandowaves;
+package com.example.juwan.orlandowaves.Fragments;
 
 
 import android.os.Bundle;
@@ -7,14 +7,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.juwan.orlandowaves.R;
+
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class Shop extends Fragment {
+public class ShopFragment extends Fragment {
 
 
-    public Shop() {
+    public ShopFragment() {
         // Required empty public constructor
     }
 
