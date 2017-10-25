@@ -1,5 +1,4 @@
-package com.example.juwan.orlandowaves.Fragments;
-
+package com.juwan.orlandowaves.Fragments;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,21 +10,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.juwan.orlandowaves.toAccess.Config;
-import com.example.juwan.orlandowaves.ActivityClass.LoginActivity;
-import com.example.juwan.orlandowaves.R;
-
+import com.juwan.orlandowaves.ActivityClass.LoginActivity;
+import com.juwan.orlandowaves.R;
+import com.juwan.orlandowaves.toAccess.Config;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ProfileFragment extends Fragment {
-
+public class BuyGameFragment extends Fragment {
     SharedPreferences preferences;
-    private String first;
-    private String last;
+    private String fbc;
+    private String Product;
 
-    public ProfileFragment() {
+    public BuyGameFragment() {
         // Required empty public constructor
     }
 
@@ -33,18 +30,22 @@ public class ProfileFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        final View rootview = inflater.inflate(R.layout.fragment_profile, container, false);
-        final View button = rootview.findViewById(R.id.logout);
+        final View rootview = inflater.inflate(R.layout.fragment_buy_game, container, false);
+        final View Games = rootview.findViewById(R.id.GamesSpinner);
+        final View Type = rootview.findViewById(R.id.TypeSpinner);
+        final View Quantity = rootview.findViewById(R.id.QuantitySpinner);
+        final View Price= rootview.findViewById(R.id.PriceTV);
+        final View AddCart = rootview.findViewById(R.id.AddCart);
         preferences = this.getActivity().getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
-        first = preferences.getString(Config.fName, "");
-        last = preferences.getString(Config.lName, "");
+        fbc = preferences.getString(fbc, "");
         TextView name = (TextView) rootview.findViewById(R.id.Name);
-        name.setText(first + " " + last);
-        button.setOnClickListener(
+        getGames();
+        name.setText(Product);
+        AddCart.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        logout();
+
                     }
                 }
         );
@@ -52,6 +53,7 @@ public class ProfileFragment extends Fragment {
     }
 
     private void logout(){
+        //Add To CART **********
         preferences = this.getActivity().getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
         //Getting editor
         SharedPreferences.Editor editor = preferences.edit();
@@ -71,4 +73,8 @@ public class ProfileFragment extends Fragment {
         startActivity(intent);
     }
 
+    private void getGames(){
+        //getGames **********
+
+    }
 }

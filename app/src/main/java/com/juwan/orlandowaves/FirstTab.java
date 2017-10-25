@@ -1,9 +1,9 @@
-package com.example.juwan.orlandowaves;
+package com.juwan.orlandowaves;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.example.juwan.orlandowaves.ActivityClass.Home;
+import com.juwan.orlandowaves.ActivityClass.Home;
+import com.juwan.orlandowaves.R;
 
 public class FirstTab extends Home {
 

@@ -1,4 +1,4 @@
-package com.example.juwan.orlandowaves;
+package com.juwan.orlandowaves;
 
 import org.junit.Test;
 

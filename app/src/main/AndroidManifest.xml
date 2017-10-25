@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.juwan.orlandowaves">
+    package="com.juwan.orlandowaves">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- To auto-complete the email text field in the login form with the user's emails -->
@@ -15,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ActivityClass.LoginActivity"
+            android:name="com.juwan.orlandowaves.ActivityClass.Home"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,12 +23,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ActivityClass.Home" />
-        <activity android:name=".ActivityClass.Register" />
-        <activity android:name=".FirstTab" />
-        <activity android:name=".ActivityClass.Profile" />
-        <activity android:name=".ActivityClass.Shop" />
-        <activity android:name=".ActivityClass.Tickets"></activity>
+        <activity android:name="com.juwan.orlandowaves.ActivityClass.LoginActivity" />
+        <activity android:name="com.juwan.orlandowaves.ActivityClass.Register" />
+        <activity android:name="com.juwan.orlandowaves.FirstTab" />
+        <activity android:name="com.juwan.orlandowaves.ActivityClass.Profile" />
+        <activity android:name="com.juwan.orlandowaves.ActivityClass.Shop" />
+        <activity android:name="com.juwan.orlandowaves.ActivityClass.Tickets"></activity>
     </application>
 
 </manifest>

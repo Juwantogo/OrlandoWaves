@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.juwan.orlandowaves.Fragments.ShopFragment">
+    tools:context="com.juwan.orlandowaves.com.juwan.orlandowaves.Fragments.ShopFragment">
 
     <!-- TODO: Update blank fragment layout -->
 

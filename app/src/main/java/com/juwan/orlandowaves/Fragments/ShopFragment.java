@@ -1,4 +1,4 @@
-package com.example.juwan.orlandowaves.Fragments;
+package com.juwan.orlandowaves.Fragments;
 
 
 import android.os.Bundle;
@@ -7,7 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.juwan.orlandowaves.R;
+import com.juwan.orlandowaves.R;
 
 
 /**

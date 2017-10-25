@@ -9,10 +9,10 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
-    tools:context="com.example.juwan.orlandowaves.ActivityClass.Register">
+    tools:context="com.juwan.orlandowaves.com.juwan.orlandowaves.ActivityClass.Register">
 
     <TextView
-        android:text="TextView"
+        android:text="Register"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/textView" />

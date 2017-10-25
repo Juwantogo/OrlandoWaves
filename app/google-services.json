@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "241517029267",
+    "firebase_url": "https://owaves-80fcf.firebaseio.com",
+    "project_id": "owaves-80fcf",
+    "storage_bucket": "owaves-80fcf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:241517029267:android:ccfbdf3c6ac94ab4",
+        "android_client_info": {
+          "package_name": "com.juwan.orlandowaves"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "241517029267-tqtac2qhavi5ntkp0auelmm8hcos84to.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.juwan.orlandowaves",
+            "certificate_hash": "307cd7f13f02f36cbde28afa5b9b90267b0cd3ba"
+          }
+        },
+        {
+          "client_id": "241517029267-n605bomlckmdc0362np1b9a6881neu1v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA3Nij61aBW7GI8bLTcbeN65jpFamSCu8k"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "241517029267-n605bomlckmdc0362np1b9a6881neu1v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

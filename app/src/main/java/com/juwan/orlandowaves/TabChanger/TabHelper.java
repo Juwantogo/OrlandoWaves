@@ -1,17 +1,15 @@
-package com.example.juwan.orlandowaves.TabChanger;
+package com.juwan.orlandowaves.TabChanger;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
 
-import com.example.juwan.orlandowaves.ActivityClass.Home;
-import com.example.juwan.orlandowaves.ActivityClass.Profile;
-import com.example.juwan.orlandowaves.ActivityClass.Shop;
-import com.example.juwan.orlandowaves.ActivityClass.Tickets;
-import com.example.juwan.orlandowaves.Fragments.ShopFragment;
-import com.example.juwan.orlandowaves.Fragments.TicketsFragment;
-import com.example.juwan.orlandowaves.R;
+import com.juwan.orlandowaves.ActivityClass.Home;
+import com.juwan.orlandowaves.ActivityClass.Profile;
+import com.juwan.orlandowaves.ActivityClass.Shop;
+import com.juwan.orlandowaves.ActivityClass.Tickets;
+import com.juwan.orlandowaves.R;
 
 /**
  * Created by Juwan on 10/13/2017.
