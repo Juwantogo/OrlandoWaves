@@ -5,7 +5,7 @@
     android:id="@+id/activity_shop"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.juwan.orlandowaves.com.juwan.orlandowaves.ActivityClass.Shop"
+    tools:context="com.juwan.orlandowaves.ActivityClass.Shop"
     >
     <include layout="@layout/viewpager_frags"/>
     <LinearLayout
@@ -17,49 +17,34 @@
 
         <include layout="@layout/tabs"/>
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <TextView
-                android:text="@string/tix"
+                android:id="@+id/textView2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/textView2" />
+                android:text="@string/tix" />
 
-            <GridLayout
-                android:layout_width="match_parent"
+            <GridView
+                android:id="@+id/gridView"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:numColumns="3"
-                android:columnWidth="100dp"
-                android:stretchMode="columnWidth"
-                android:useDefaultMargins="true">
-
-                <ImageView
-                    android:layout_width="150px"
-                    android:layout_height="150px"
-                    app:srcCompat="@mipmap/logodark"
-                    android:id="@+id/imageView9"
-                    android:scaleType="fitStart" />
-
-                <ImageView
-                    android:layout_width="150px"
-                    android:layout_height="150px"
-                    app:srcCompat="@mipmap/logo"
-                    android:id="@+id/imageView7" />
-            </GridLayout>
+                android:gravity="center"
+                android:numColumns="auto_fit"
+                android:columnWidth="105dp"
+                android:stretchMode="spacingWidth"></GridView>
 
             <TextView
-                android:text="@string/merch"
+                android:id="@+id/textView3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/textView3" />
+                android:text="@string/merch" />
+
+
         </LinearLayout>
-    </ScrollView>
+
     </LinearLayout>
 </android.support.design.widget.CoordinatorLayout>
