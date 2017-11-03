@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
+import android.widget.Toast;
 
 import com.juwan.orlandowaves.ActivityClass.Home;
 import com.juwan.orlandowaves.ActivityClass.Profile;
@@ -27,6 +28,7 @@ public class TabHelper {
         view.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
+                //Toast.makeText(context, "TabChange", Toast.LENGTH_SHORT).show();
                 switch(tab.getPosition()){
                     case 0:
                         Intent intent1 = new Intent(context, Home.class);

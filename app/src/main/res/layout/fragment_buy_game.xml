@@ -8,6 +8,7 @@
     android:weightSum="2">
 
     <!-- TODO: Update blank fragment layout -->
+    <include layout="@layout/back_toolbar"/>
 
     <LinearLayout
         android:orientation="horizontal"
@@ -69,10 +70,11 @@
                 android:layout_weight="1" />
 
             <Spinner
+                android:id="@+id/TypeSpinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/TypeSpinner"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:entries="@array/adult_youth" />
 
             <TextView
                 android:text="Choose Quantity:"
@@ -82,10 +84,11 @@
                 android:layout_weight="1" />
 
             <Spinner
+                android:id="@+id/QuantitySpinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/QuantitySpinner"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:entries="@array/quantity" />
 
         </LinearLayout>
 

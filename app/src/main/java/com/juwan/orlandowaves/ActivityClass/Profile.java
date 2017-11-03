@@ -176,10 +176,10 @@ public class Profile extends AppCompatActivity {
                                     .getValue(users.class)
                                     .getFullname()
                     );
-                    info.setPhonenumber(
+                    info.setPhone(
                             ds.child(userID)
                                     .getValue(users.class)
-                                    .getPhonenumber()
+                                    .getPhone()
                     );
                     info.setUserid(
                             ds.child(userID)

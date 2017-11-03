@@ -1,16 +1,21 @@
 package com.juwan.orlandowaves.toAccess;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by Juwan on 10/25/2017.
  */
 
-public class games {
+public class games implements Parcelable{
     private long game_id;
     private String date;
     private String day;
     private String doors_open;
     private String event;
     private String opponent;
+
+
     private String location;
     private String image_url;
     private String time;
@@ -33,6 +38,60 @@ public class games {
 
     public games() {
 
+    }
+
+    protected games(Parcel in) {
+        game_id = in.readLong();
+        date = in.readString();
+        day = in.readString();
+        doors_open = in.readString();
+        event = in.readString();
+        opponent = in.readString();
+        location = in.readString();
+        image_url = in.readString();
+        time = in.readString();
+        adult_price = in.readString();
+        youth_price = in.readString();
+    }
+
+    public static final Creator<games> CREATOR = new Creator<games>() {
+        @Override
+        public games createFromParcel(Parcel in) {
+            return new games(in);
+        }
+
+        @Override
+        public games[] newArray(int size) {
+            return new games[size];
+        }
+    };
+
+    public long getGame_id() {
+        return game_id;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public String getDay() {
+        return day;
+    }
+
+    public String getDoors_open() {
+        return doors_open;
+    }
+
+    public String getEvent() {
+        return event;
+    }
+
+    public String getOpponent() {
+        return opponent;
+    }
+
+    public String getLocation() {
+        return location;
     }
 
     public String getYouth_price() {
@@ -93,5 +152,25 @@ public class games {
 
     public void setAdult_price(String adult_price) {
         this.adult_price = adult_price;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(game_id);
+        dest.writeString(date);
+        dest.writeString(day);
+        dest.writeString(doors_open);
+        dest.writeString(event);
+        dest.writeString(opponent);
+        dest.writeString(location);
+        dest.writeString(image_url);
+        dest.writeString(time);
+        dest.writeString(adult_price);
+        dest.writeString(youth_price);
     }
 }

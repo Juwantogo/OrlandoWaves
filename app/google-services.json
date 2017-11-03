@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "241517029267-v09go6cp8260k56qp0nvhdhglrl0cdja.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.juwan.orlandowaves",
+            "certificate_hash": "6c00367bac9742fa3777e1f2138647c3bd7841f9"
+          }
+        },
+        {
           "client_id": "241517029267-tqtac2qhavi5ntkp0auelmm8hcos84to.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

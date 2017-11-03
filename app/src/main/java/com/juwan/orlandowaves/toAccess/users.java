@@ -36,11 +36,11 @@ public class users {
             this.user_id = user_id;
         }
 
-        public long getPhonenumber() {
+        public long getPhone() {
             return phone_number;
         }
 
-        public void setPhonenumber(long phone_number) {
+        public void setPhone(long phone_number) {
             this.phone_number = phone_number;
         }
 

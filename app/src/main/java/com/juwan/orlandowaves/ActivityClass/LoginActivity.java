@@ -26,8 +26,15 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.juwan.orlandowaves.R;
 import com.juwan.orlandowaves.toAccess.Config;
+import com.juwan.orlandowaves.toAccess.users;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -51,6 +58,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private Button buttonLogin;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
+    private FirebaseDatabase mFirebaseDatabase;
+    private DatabaseReference myRef;
+    private long fbc, auth;
 
     //boolean variable to check user is logged in or not
     //initially it is false
@@ -109,84 +119,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         finish();
     }
 
-    private void login(){
-        //Getting values from edit texts
-        final String email = editTextEmail.getText().toString().trim();
-        final String password = editTextPassword.getText().toString().trim();
-
-        //Creating a string request
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, Config.LOGIN_URL,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        //If we are getting success from server
-                        //Toast.makeText(LoginActivity.this, response, Toast.LENGTH_LONG).show();
-                        try {
-                            JSONObject jsonObject = new JSONObject(response);
-                            //JSONArray result = jsonObject.getJSONArray(Config.JSON_ARRAY);
-                            //JSONObject ourData = jsonObject.getJSONObject;
-                            String success = jsonObject.getString("success");
-                            //Toast.makeText(LoginActivity.this, "cc", Toast.LENGTH_LONG).show();
-
-                            if(success.trim().equalsIgnoreCase(Config.LOGIN_SUCCESS)){
-                                //Creating a shared preference
-                                final String fName  = jsonObject.getString("fName");
-                                final String lName  = jsonObject.getString("lName");
-                                final String fbc  = jsonObject.getString("fbc");
-                                final String auth  = jsonObject.getString("auth");
-                                SharedPreferences sharedPreferences = LoginActivity.this.getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
-                                Toast.makeText(LoginActivity.this,  success , Toast.LENGTH_LONG).show();
-                                //Creating editor to store values to shared preferences
-                                SharedPreferences.Editor editor = sharedPreferences.edit();
-
-                                //Adding values to editor
-                                editor.putBoolean(Config.LOGGEDIN_SHARED_PREF, true);
-                                editor.putString(Config.EMAIL_SHARED_PREF, email);
-                                editor.putString(Config.fName, fName);
-                                editor.putString(Config.lName, lName);
-                                editor.putString(Config.fbc, fbc);
-                                editor.putString(Config.auth, auth);
-                                Toast.makeText(LoginActivity.this, Config.fbc, Toast.LENGTH_LONG).show();
-                                //Saving values to editor
-                                editor.commit();
-
-                                //Starting profile activity
-                                Intent intent = new Intent(LoginActivity.this, Home.class);
-                                startActivity(intent);
-                            }
-                            else{
-                                //If the server response is not success
-                                //Displaying an error message on toast
-                                Toast.makeText(LoginActivity.this, "Invalid username or password", Toast.LENGTH_LONG).show();
-                            }   }
-                        catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        //You can handle error here if you want
-                        Toast.makeText(LoginActivity.this, "err", Toast.LENGTH_LONG).show();
-                    }
-                }){
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> params = new HashMap<>();
-                //Adding parameters to request
-                params.put(Config.KEY_EMAIL, email);
-                params.put(Config.KEY_PASSWORD, password);
-
-                //returning parameter
-                return params;
-            }
-        };//protected Map is the inside of string request function
-
-        //Adding the string request to the queue
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(stringRequest);
-    }
 
     private boolean isStringNull(String string){
         Log.d(TAG, "isStringNull: checking string if null.");
@@ -233,6 +165,28 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                                 Toast.LENGTH_SHORT).show();
                                         //mProgressBar.setVisibility(View.GONE);
                                         // mPleaseWait.setVisibility(View.GONE);
+                                        SharedPreferences sharedPreferences = LoginActivity.this.getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+                                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                                        FirebaseDatabase mFirebaseDatabase = FirebaseDatabase.getInstance();
+                                        DatabaseReference myRef = mFirebaseDatabase.getReference();
+
+                                        Query query = myRef.child("user_accounts").child(mAuth.getCurrentUser().getUid());
+                                        query.addValueEventListener(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                                users user = dataSnapshot.getValue(users.class);
+                                                fbc = user.getFbc();
+                                                auth = user.getAuth();
+                                            }
+
+                                            @Override
+                                            public void onCancelled(DatabaseError databaseError) {
+                                                System.out.println("The read failed: " + databaseError.getCode());
+                                            }
+                                        });
+                                        //Adding values to editor
+                                        editor.putLong(Config.fbc, fbc);
+                                        editor.putLong(Config.auth, auth);
                                         Intent intent = new Intent(LoginActivity.this, Home.class);
                                         startActivity(intent);
                                         finish();

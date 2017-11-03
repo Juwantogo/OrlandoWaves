@@ -1,18 +1,56 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_shop"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.juwan.orlandowaves.com.juwan.orlandowaves.Fragments.ShopFragment">
+    >
+    <include layout="@layout/viewpager_frags"/>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/contain">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    <!-- TODO: Update blank fragment layout -->
 
 
-    <TextView
-        android:text="shop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="261dp"
-        android:id="@+id/tix" />
-</RelativeLayout>
+
+
+            <include layout="@layout/tabs"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tix" />
+
+                <GridView
+                    android:id="@+id/gridView"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:numColumns="auto_fit"
+                    android:columnWidth="105dp"
+                    android:stretchMode="spacingWidth"></GridView>
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/merch" />
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </FrameLayout>
+</android.support.design.widget.CoordinatorLayout>
