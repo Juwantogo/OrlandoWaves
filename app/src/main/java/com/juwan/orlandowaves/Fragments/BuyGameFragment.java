@@ -14,30 +14,12 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import android.accounts.Account;
-import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -49,13 +31,11 @@ import java.util.ArrayList;
 
 import com.juwan.orlandowaves.ActivityClass.LoginActivity;
 import com.juwan.orlandowaves.R;
+import com.juwan.orlandowaves.toAccess.CartDBHelper;
 import com.juwan.orlandowaves.toAccess.Config;
 
-import com.juwan.orlandowaves.toAccess.GridAdapter;
 import com.juwan.orlandowaves.toAccess.UniversalImageLoader;
 import com.juwan.orlandowaves.toAccess.games;
-import com.juwan.orlandowaves.toAccess.users;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 import static android.content.ContentValues.TAG;
 
@@ -82,6 +62,7 @@ public class BuyGameFragment extends Fragment {
     ArrayList<String> youthPrice;
     ArrayList<String> time, date_opponent_event, adult_youth;
     private Spinner Games, Type, Quantity;
+    private Button AddCart;
 
 
 
@@ -102,7 +83,7 @@ public class BuyGameFragment extends Fragment {
         Price= rootview.findViewById(R.id.PriceTV);
         DES= rootview.findViewById(R.id.DescriptionTV);
         final View Back= rootview.findViewById(R.id.Back);
-        final View AddCart = rootview.findViewById(R.id.AddCart);
+        AddCart = rootview.findViewById(R.id.AddCart);
         IMG= rootview.findViewById(R.id.ProductImage);
         NAME = rootview.findViewById(R.id.ProductName);
 
@@ -139,14 +120,7 @@ public class BuyGameFragment extends Fragment {
         //
 
         //name.setText(Product);
-        AddCart.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
 
-                    }
-                }
-        );
         return rootview;
     }
 
@@ -285,6 +259,19 @@ time = new ArrayList<>();
                         Type.setSelection(0);
                     }
                 });
+
+        AddCart.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        CartDBHelper cartHelper = new CartDBHelper(getActivity());
+                        cartHelper.AddToCart(selectedGame, Type.getSelectedItem().toString(), Price.getText().toString(), Quantity.getSelectedItem().toString());
+                        FragmentManager fm  = getFragmentManager();
+                        fm.popBackStack();
+                    }
+                }
+        );
+
     }
 
 

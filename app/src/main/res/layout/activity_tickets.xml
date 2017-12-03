@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_tickets"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.juwan.orlandowaves.com.juwan.orlandowaves.ActivityClass.Tickets"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <include layout="@layout/tabs"/>
 
-    <GridView
+    <FrameLayout
+        android:id="@+id/fragContainer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/gridView" />
+        android:layout_height="match_parent">
 
-</LinearLayout>
+    </FrameLayout>
+
+</RelativeLayout>

@@ -67,6 +67,11 @@ public class Shop extends AppCompatActivity implements ShopFragment.OnGridItemSe
         transaction.commit();
     }
 
+    public void reloadCart(Fragment fragment){
+        getSupportFragmentManager().beginTransaction().detach(fragment).commitNowAllowingStateLoss();
+        getSupportFragmentManager().beginTransaction().attach(fragment).commitAllowingStateLoss();
+    }
+
     //make new griditemselectedListener-------------------------------------------------
     public interface OnGridItemSelectedListener{
         void onGridItemSelected(games game, int activityNumber);

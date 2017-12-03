@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -15,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.Toast;
 
@@ -77,7 +79,7 @@ public class ShopFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view =  inflater.inflate(R.layout.fragment_shop, container, false);
-
+Button cart = view.findViewById(R.id.viewcart);
         //get arguments
         tabNum = getArguments().getInt(getString(R.string.currentActivity));
         setUpTabs();
@@ -89,6 +91,21 @@ public class ShopFragment extends Fragment {
         setupFirebaseAuth();
         //setUpFragments();
         setupGridView();
+        cart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Cart fragment = new Cart();
+                //Bundle args = new Bundle();
+                //args.putParcelable(getString(R.string.itemName), game);
+                //args.putString(getString(R.string.itemType), getString(R.string.SingleGames));
+                //fragment.setArguments(args);
+
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.fragContainer,fragment);
+                transaction.addToBackStack(getString(R.string.shopFrag));
+                transaction.commit();
+            }
+        });
         return view;
     }
 
@@ -102,6 +119,7 @@ public class ShopFragment extends Fragment {
     public void onAttach(Context context) {
         try{
             monGridItemSelectedListener = (OnGridItemSelectedListener) getActivity();
+            mContext = (FragmentActivity) context;
         }catch (ClassCastException e){
             Log.e(TAG, "onAttach: ClassCastException: " + e.getMessage() );
         }
@@ -135,7 +153,7 @@ public class ShopFragment extends Fragment {
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for ( DataSnapshot singleSnapshot :  dataSnapshot.getChildren()){
+                for ( DataSnapshot singleSnapshot :  dataSnapshot.getChildren()){//
                     //interates through all childs in query(games node: 1, 2...)
                     gameList.add(singleSnapshot.getValue(games.class));
                     //add each entire node aka singleSnapshot=[i...i*n] to gameList array attach the games.class to it
