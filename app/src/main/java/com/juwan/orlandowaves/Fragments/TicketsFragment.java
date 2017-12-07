@@ -23,7 +23,6 @@ import com.juwan.orlandowaves.R;
 import com.juwan.orlandowaves.TabChanger.TabHelper;
 import com.juwan.orlandowaves.toAccess.Items;
 import com.juwan.orlandowaves.toAccess.TicketListAdapter;
-import com.juwan.orlandowaves.toAccess.games;
 
 import java.util.ArrayList;
 
@@ -69,7 +68,7 @@ public class TicketsFragment extends Fragment {
     }
 
     private void getGameTickets(){
-        ArrayList<Items> itemList = new ArrayList<>();
+        final ArrayList<Items> itemList = new ArrayList<>();
         Query query = myRef.child("order").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -82,7 +81,7 @@ public class TicketsFragment extends Fragment {
                     for(DataSnapshot items : singleSnapshot.getChildren()) {//items = each each in order single.getChildren = items in order
                         String gameCheck = items.getKey();
                         gameCheck = gameCheck.replaceAll("[0-9]+", "");
-                        if(gameCheck.equals("game")){
+                        if(gameCheck.equals("game") || gameCheck.equals("season")){
                             itemList.add(items.getValue(Items.class));
                         }
                         Log.e(TAG, "games" + itemList);

@@ -14,7 +14,7 @@
         app:srcCompat="@mipmap/logo" android:contentDescription="TODO" />
 
     <TextView
-        android:id="@+id/name"
+        android:id="@+id/nameTV"
         android:layout_width="105dp"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/productImage"
@@ -33,9 +33,9 @@
         android:id="@+id/price"
         android:layout_width="105dp"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/name"
-        android:layout_alignStart="@+id/name"
-        android:layout_below="@+id/name"
+        android:layout_alignLeft="@+id/nameTV"
+        android:layout_alignStart="@+id/nameTV"
+        android:layout_below="@+id/nameTV"
         android:layout_centerInParent="false"
         android:ellipsize="end"
         android:maxLines="1"
@@ -48,7 +48,7 @@
         style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/name"
+        android:layout_above="@+id/nameTV"
         android:layout_alignEnd="@+id/productImage"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"

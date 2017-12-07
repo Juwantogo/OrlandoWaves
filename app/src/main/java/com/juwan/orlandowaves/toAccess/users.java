@@ -1,8 +1,6 @@
 package com.juwan.orlandowaves.toAccess;
 
-import static android.R.attr.name;
 import static com.juwan.orlandowaves.R.id.phone;
-import static com.juwan.orlandowaves.toAccess.Config.fbc;
 
 /**
  * Created by Juwan on 10/20/2017.

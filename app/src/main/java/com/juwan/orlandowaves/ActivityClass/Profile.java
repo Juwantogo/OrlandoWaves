@@ -3,10 +3,10 @@ package com.juwan.orlandowaves.ActivityClass;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -23,16 +23,20 @@ import com.juwan.orlandowaves.TabChanger.TabHelper;
 import com.juwan.orlandowaves.toAccess.Config;
 import com.juwan.orlandowaves.toAccess.users;
 
-import static android.R.attr.name;
 import static android.content.ContentValues.TAG;
 
 public class Profile extends AppCompatActivity {
     SharedPreferences preferences;
     private String first;
     private String last;
+    private long fbc;
     private int tabNum;
     private String userID;
     private TextView name;
+    private TextView FBCtv;
+    SharedPreferences.Editor editor;
+    TabLayout tabs;
+
 
     private FirebaseAuth mAuth;
     private FirebaseDatabase mFirebaseDB;
@@ -45,6 +49,8 @@ public class Profile extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
         Intent objIntent = this.getIntent();
         tabNum = objIntent.getIntExtra("tabNum", 0); //tabNum is the number from TabHelper sent to this activity
+        name = (TextView) findViewById(R.id.Name);
+        FBCtv = (TextView) findViewById(R.id.FBC);
         setUpTabs();
         setupFirebaseAuth();
         if(mAuth.getCurrentUser() != null){
@@ -53,9 +59,11 @@ public class Profile extends AppCompatActivity {
 
         View button = findViewById(R.id.logout);
         preferences = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        editor = preferences.edit();
         //first = preferences.getString(Config.fName, "");
         //last = preferences.getString(Config.lName, "");
-        name = (TextView) findViewById(R.id.Name);
+
+
         //name.setText(first + " " + last);
         button.setOnClickListener(
                 new View.OnClickListener() {
@@ -71,11 +79,34 @@ public class Profile extends AppCompatActivity {
     private void setUserInfo(users newUserInfo){
         //newUserInfo already has the info we need so:::    newUserInfo.getEmail();
         name.setText(newUserInfo.getFullname());
+        fbc = newUserInfo.getFbc();
+        if(fbc == 0){
+            FBCtv.setText(R.string.notfbc);
+            editor.putLong(Config.fbc, fbc);
+            editor.commit();
+            FBCtv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent(Profile.this, FBCpush.class));
+                }
+            });
+        }
+        else{
+            FBCtv.setText(R.string.fbc);
+            editor.putLong(Config.fbc, fbc);
+            editor.commit();
+            FBCtv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    tabs.getTabAt(1).select();
+                }
+            });
+        }
 
     }
 
     public void setUpTabs(){
-        TabLayout tabs = (TabLayout) findViewById(R.id.sliding_tabs);
+        tabs = (TabLayout) findViewById(R.id.sliding_tabs);
         tabs.getTabAt(tabNum).select(); //select correct tab Number after finding the tabs but before setting enable change tabs
         TabHelper.enableTabChange(this,this, tabs);
     }

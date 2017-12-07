@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.juwan.orlandowaves.com.juwan.orlandowaves.Fragments.BuyGameFragment"
+    tools:context="com.juwan.orlandowaves.Fragments.BuyGameFragment"
     android:orientation="vertical"
     android:weightSum="2">
 
@@ -11,63 +11,62 @@
     <include layout="@layout/back_toolbar"/>
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:weightSum="2"
-        android:layout_weight="1" >
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:weightSum="2">
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_weight="1"
             android:layout_height="match_parent"
-            >
+            android:layout_weight="1"
+            android:orientation="vertical">
 
             <TextView
-                android:text="ProductName"
+                android:id="@+id/ProductName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/ProductName"
+                android:text="ProductName"
+                android:textAlignment="center"
                 android:textSize="24sp"
-                android:textStyle="normal|bold"
-                android:textAlignment="center" />
+                android:textStyle="normal|bold" />
 
             <ImageView
+                android:id="@+id/ProductImage"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:srcCompat="@mipmap/logo"
-                android:id="@+id/ProductImage"
+                android:adjustViewBounds="false"
                 android:cropToPadding="false"
-                android:adjustViewBounds="false" />
+                app:srcCompat="@mipmap/logo" />
         </LinearLayout>
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:orientation="vertical"
             android:weightSum="6">
 
             <TextView
-                android:text="Pick Game:"
+                android:id="@+id/StyleTV"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/GamesTV"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:text="Pick Game:" />
 
             <Spinner
+                android:id="@+id/StyleSpinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/GamesSpinner"
                 android:layout_weight="1" />
 
             <TextView
-                android:text="Pick Adult/Youth:"
+                android:id="@+id/TypeTV"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/TypeTV"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:text="Pick Adult/Youth:" />
 
             <Spinner
                 android:id="@+id/TypeSpinner"
@@ -77,11 +76,11 @@
                 android:entries="@array/adult_youth" />
 
             <TextView
-                android:text="Choose Quantity:"
+                android:id="@+id/QuantityTV"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/QuantityTV"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:text="Choose Quantity:" />
 
             <Spinner
                 android:id="@+id/QuantitySpinner"

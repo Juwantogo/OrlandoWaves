@@ -4,29 +4,23 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.util.Log;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.juwan.orlandowaves.R;
 import com.juwan.orlandowaves.toAccess.CartDBHelper;
 import com.juwan.orlandowaves.toAccess.CartListAdapter;
-import com.juwan.orlandowaves.toAccess.Items;
+import com.juwan.orlandowaves.toAccess.Currency;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.UUID;
-
-import static android.content.ContentValues.TAG;
+import java.math.BigDecimal;
 
 /**
 
@@ -36,7 +30,8 @@ public class Cart extends Fragment {
     CartDBHelper myDb;
     CartListAdapter adapter;
     TextView total;
-    Double totalD = 0.00;
+    Currency currency;
+    BigDecimal totalD = BigDecimal.ZERO;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private FirebaseDatabase mFirebaseDatabase;
@@ -45,6 +40,9 @@ public class Cart extends Fragment {
     int season = 1;
     int merch = 1;
     int count;
+    String orderNUM, user, _id;
+
+
 
     public Cart() {
         // Required empty public constructor
@@ -60,6 +58,7 @@ public class Cart extends Fragment {
         final View Pay= rootview.findViewById(R.id.pay);
         ListView list = rootview.findViewById(R.id.list);
         total = rootview.findViewById(R.id.total);
+        currency = new Currency();
 
         Back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,78 +73,22 @@ public class Cart extends Fragment {
             @Override
             public void onClick(View v) {
                 Cursor res = myDb.getAllData();
-                String user = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                totalD= 0.00;
-
-
-                myRef = FirebaseDatabase.getInstance().getReference();
-                myRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        for(DataSnapshot ds: dataSnapshot
-                                .child("order")
-                                .child(user)
-                                .getChildren()){
-                                    count++;
-                        }
-
-                        while (res.moveToNext()) {
-
-                            String currentPrice = res.getString(res.getColumnIndexOrThrow("finalprice"));
-                            //change if for merch and season
-                            if(res.getString(res.getColumnIndexOrThrow("name")).equals("Single Game Ticket")){
-                                Items items = new Items(
-                                        res.getString(res.getColumnIndexOrThrow("name")),
-                                        ("Date: " + res.getString(res.getColumnIndexOrThrow("date")) + " Event: " + res.getString(res.getColumnIndexOrThrow("event")) + " - vs " + res.getString(res.getColumnIndexOrThrow("opponent"))),
-                                        res.getString(res.getColumnIndexOrThrow("finalprice")),
-                                        Integer.parseInt(res.getString(res.getColumnIndexOrThrow("quantity"))),
-                                        res.getString(res.getColumnIndexOrThrow("type")),
-                                        res.getString(res.getColumnIndexOrThrow("location"))
-                                );
-                                Log.e(TAG, "totalPRICE*********: " + items);
-                                myRef.child("order")
-                                        .child(user)
-                                        .child("order" + count).child("game" + games).setValue(items);
-                                games++;
-                            }
-                            currentPrice = currentPrice.replace("$","");
-                            //Log.e(TAG, "PRICE*********: " + currentPrice);
-                            Double dPrice = Double.parseDouble(currentPrice);
-                            totalD = totalD + dPrice;
-                            Log.e(TAG, "totalPRICE*********: " + totalD);
-
-
-
-                        }
-
-                        SimpleDateFormat formatter = new SimpleDateFormat();
-                        myRef.child("order")
-                                .child(user)
-                                .child("order" + count).child("total").setValue(totalD);
-                        myRef.child("order")
-                                .child(user)
-                                .child("order" + count).child("address").setValue("addy");
-                        myRef.child("order")
-                                .child(user)
-                                .child("order" + count).child("date").setValue(formatter.format(Calendar.getInstance().getTime()));
-                        myRef.child("order")
-                                .child(user)
-                                .child("order" + count).child("coupon").setValue("0");
-                        myRef.child("order")
-                                .child(user)
-                                .child("order" + count).child("orderNUM").setValue(UUID.randomUUID().toString());
-
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
-
-
-                //adapter.changeCursor(res);
-                //total.setText(totalD.toString());
+                if(res.moveToFirst()){
+                    PaymentFragment fragment = new PaymentFragment();
+                    //                Bundle args = new Bundle();
+//                args.putString(getString(R.string.userID), user);
+//                args.putString(getString(R.string.orderID), orderNUM);
+//                //args.putString(getString(R.string.cartID), _id);
+//                args.putString(getString(R.string.total), (currency.getBigDecimal(total.getText().toString())).toString());
+//                fragment.setArguments(args);
+//
+                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                    transaction.replace(R.id.fragContainer,fragment);
+                    transaction.addToBackStack(getString(R.string.payFrag));
+                    transaction.commit();
+                }else{
+                    Toast.makeText(getActivity(), "Cart Is Empty", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -172,15 +115,12 @@ public class Cart extends Fragment {
     //@Override
     public void afterLastCursor(){
         Cursor res = myDb.getAllData();
-        totalD= 0.00;
+        totalD = BigDecimal.ZERO;
         while (res.moveToNext()) {
-            String currentPrice = res.getString(res.getColumnIndexOrThrow("finalprice"));
-            currentPrice = currentPrice.replace("$","");
-            Log.e(TAG, "PRICE*********: " + currentPrice);
-            Double dPrice = Double.parseDouble(currentPrice);
-            totalD = totalD + dPrice;
+            BigDecimal big = currency.getBigDecimal(res.getString(res.getColumnIndexOrThrow("finalprice")));
+            totalD = totalD.add(big);
         }
-        adapter.changeCursor(res);
-        total.setText(totalD.toString());
+        adapter.changeCursor(res);;
+        total.setText(currency.getMoneyString(totalD));
     }
 }

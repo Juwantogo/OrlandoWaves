@@ -1,23 +1,21 @@
 package com.juwan.orlandowaves.toAccess;
 
 import android.content.Context;
-
-import com.juwan.orlandowaves.R;
-import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
-import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
-
-
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+
+import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+import com.juwan.orlandowaves.R;
+
 /**
  * Created by Juwan on 10/26/2017.
  */
@@ -29,6 +27,8 @@ public class UniversalImageLoader {
     public UniversalImageLoader(Context context) {
         mContext = context;
     }
+
+
 
     public ImageLoaderConfiguration getConfig(){
         DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
@@ -60,6 +60,7 @@ public class UniversalImageLoader {
     public static void setImage(String imgURL, ImageView image, final ProgressBar mProgressBar, String append){
 
         ImageLoader imageLoader = ImageLoader.getInstance();
+        //imageLoader.init(ImageLoaderConfiguration.createDefault(get));
         //imageLoader.init(ImageLoaderConfiguration.createDefault(getActivity));
         //imageLoader(mContext.getApplicationContext());
         imageLoader.displayImage(append + imgURL, image, new ImageLoadingListener() {
@@ -82,6 +83,7 @@ public class UniversalImageLoader {
                 if(mProgressBar != null){
                     mProgressBar.setVisibility(View.GONE);
                 }
+
             }
 
             @Override
@@ -91,5 +93,8 @@ public class UniversalImageLoader {
                 }
             }
         });
+
+
+
     }
 }

@@ -7,6 +7,8 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
 
     <application
         android:allowBackup="true"
@@ -29,6 +31,10 @@
         <activity android:name=".ActivityClass.Profile" />
         <activity android:name=".ActivityClass.Shop" />
         <activity android:name=".ActivityClass.Tickets" />
+        <activity
+            android:name=".ActivityClass.FBCpush"
+            android:label="@string/title_activity_fbcpush"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

@@ -2,6 +2,7 @@ package com.juwan.orlandowaves.toAccess;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,34 +19,43 @@ import com.juwan.orlandowaves.R;
 
 import java.util.ArrayList;
 
+import static android.content.ContentValues.TAG;
+
 /**
- * Created by Juwan on 10/26/2017.
+ * Created by Juwan on 12/6/2017.
  */
 
-public class GridAdapter extends BaseAdapter {
+public class RosterAdapter extends BaseAdapter {
     private Context mContext;
-    private final ArrayList<String> price;
-    private final ArrayList<String> ImageURLs;
+    private final ArrayList<String> height;
+    private final ArrayList<String> imgURLs;
+    private final ArrayList<String> pos;
     private final ArrayList<String> name;
+    private final ArrayList<String> description;
+
     private ImageView imageView;
 
-    //adapter constructor context, imageurls, price, name -- passes all at the same position itt came from
-    public GridAdapter(Context c, ArrayList<String> price, ArrayList<String> name, ArrayList<String> ImageURLs) {
-        mContext = c;
-        this.ImageURLs = ImageURLs;
-        this.price = price;
+    public RosterAdapter(Context mContext, ArrayList<String> name, ArrayList<String> height, ArrayList<String> pos, ArrayList<String> description, ArrayList<String> imgURLs) {
+        this.mContext = mContext;
+        this.height = height;
+        this.imgURLs = imgURLs;
+        this.pos = pos;
         this.name = name;
+        this.description = description;
     }
+
 
     @Override
     public int getCount() {
-        return price.size();
+        return name.size();
     }
 
     @Override
     public Object getItem(int position) {
         return null;
     }
+
+
 
     @Override
     public long getItemId(int position) {
@@ -62,50 +72,62 @@ public class GridAdapter extends BaseAdapter {
         return getCount();
     }
 
-    //viewHolder to set Holder.visibility!!
     private static class ViewHolder {
 
         private ProgressBar mProgressBar;
-        private ImageView imageView;
+        private ImageView imgView;
+        private TextView descriptionTV;
+        private TextView heightTV;
         private TextView nameTV;
-        private TextView priceTV;
+        private TextView positionTV;
     }
 
-
-    //for every item in list get position, convertview which is default empty on request, and parent
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View grid;
         LayoutInflater inflater = (LayoutInflater) mContext
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         //instantiate ViewHolder to holder
-        final ViewHolder holder;
+        final RosterAdapter.ViewHolder holder;
 
 
         if (convertView == null) {
-            holder = new ViewHolder();
+            holder = new RosterAdapter.ViewHolder();
             //grid = new View(mContext);
-            convertView = inflater.inflate(R.layout.custom_grid_single, null);
+            convertView = inflater.inflate(R.layout.single_player, null);
             holder.nameTV = convertView.findViewById(R.id.nameTV);
-            holder.priceTV = convertView.findViewById(R.id.price);
+            holder.heightTV = convertView.findViewById(R.id.heightTV);
+            holder.positionTV = convertView.findViewById(R.id.positionTV);
+            holder.descriptionTV = convertView.findViewById(R.id.descriptionTV);
             holder.mProgressBar = convertView.findViewById(R.id.progressBar);
-            holder.imageView = convertView.findViewById(R.id.productImage);
+            holder.imgView = convertView.findViewById(R.id.productImage);
 
             //set TVs to correct name and setTag of convert View
-            holder.priceTV.setText(price.get(position));
             holder.nameTV.setText(name.get(position));
+            holder.heightTV.setText(height.get(position));
+            holder.positionTV.setText(pos.get(position));
+            holder.descriptionTV.setText(description.get(position));
 
 
-            String ImageURL = ImageURLs.get(position);
+            String ImageURL = imgURLs.get(position);
+//        ImageLoader imageLoader = ImageLoader.getInstance();
+//        imageLoader.init(ImageLoaderConfiguration.createDefault(mContext));
+//        UniversalImageLoader.setImage(ImageURL,holder.imgView,holder.mProgressBar,"");
 
-            //new instance of imageloader, init with context, and displayImage in holder.imageView
-            //if started so progressbar, failed/cancel hide progressbar & show default IMG from UIL,
+
+//        //new instance of imageloader, init with context, and displayImage in holder.imageView
+//        //if started so progressbar, failed/cancel hide progressbar & show default IMG from UIL,
             ImageLoader imageLoader = ImageLoader.getInstance();
+
             imageLoader.init(ImageLoaderConfiguration.createDefault(mContext));
             //Toast.makeText(mContext, ImageURL, Toast.LENGTH_SHORT).show();
-            imageLoader.displayImage(ImageURL,holder.imageView, new ImageLoadingListener() {
+//
+//
+//
+            imageLoader.displayImage(ImageURL,holder.imgView, new ImageLoadingListener() {
                 @Override
                 public void onLoadingStarted(String imageUri, View view) {
+                    Log.e(TAG,"start");
                     if(holder.mProgressBar != null){
                         holder.mProgressBar.setVisibility(View.VISIBLE);
                     }
@@ -113,6 +135,7 @@ public class GridAdapter extends BaseAdapter {
 
                 @Override
                 public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+                    Log.e(TAG,"FAILED");
                     if(holder.mProgressBar != null){
                         holder.mProgressBar.setVisibility(View.GONE);
                     }
@@ -120,6 +143,7 @@ public class GridAdapter extends BaseAdapter {
 
                 @Override
                 public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                    Log.e(TAG,"Done");
                     if(holder.mProgressBar != null){
                         holder.mProgressBar.setVisibility(View.GONE);
                     }
@@ -127,6 +151,7 @@ public class GridAdapter extends BaseAdapter {
 
                 @Override
                 public void onLoadingCancelled(String imageUri, View view) {
+                    Log.e(TAG,"cancel");
                     if(holder.mProgressBar != null){
                         holder.mProgressBar.setVisibility(View.GONE);
                     }
@@ -136,13 +161,12 @@ public class GridAdapter extends BaseAdapter {
             convertView.setTag(holder);
         } else {
             //getTeag of convertView and make that the holder so holder = existing holder
-            holder = (ViewHolder) convertView.getTag();
+            holder = (RosterAdapter.ViewHolder) convertView.getTag();
         }
 
         //set string to correct image url by position
 
 
         //return convert view which contains all the previous set up things
-        return convertView;
-    }
+        return convertView;    }
 }

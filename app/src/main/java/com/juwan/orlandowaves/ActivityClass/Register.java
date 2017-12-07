@@ -1,11 +1,9 @@
 package com.juwan.orlandowaves.ActivityClass;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
-import android.os.AsyncTask;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -23,11 +21,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.juwan.orlandowaves.R;
-import com.juwan.orlandowaves.toAccess.RegisterUserClass;
 import com.juwan.orlandowaves.toAccess.users;
-
-
-import java.util.HashMap;
 
 import static android.content.ContentValues.TAG;
 import static com.juwan.orlandowaves.R.id.phone;
@@ -38,6 +32,8 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
     private EditText editTextPassword;
     private EditText editTextEmail;
     private EditText editTextPhone;
+    private View load;
+
 
     private String fName;
     private String lName;
@@ -45,6 +41,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
     private String password;
     private  String email;
     private  String fullname;
+    private int registered = 0;
 
 
     private Button buttonRegister;
@@ -55,9 +52,6 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
     private DatabaseReference myRef;
 
  private String userID;
-
-    private static final String REGISTER_URL = "http://70.127.41.113/OrlandoWaves/register.php"; //change once AWS is up
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +64,9 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
         editTextEmail = (EditText) findViewById(R.id.email);
         editTextPassword = (EditText) findViewById(R.id.pass);
         editTextPhone = (EditText) findViewById(phone);
+        load =  findViewById(R.id.load);
+        load.setVisibility(View.GONE);
+
 
         buttonRegister = (Button) findViewById(R.id.registerBTN);
 
@@ -191,6 +188,8 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
                             Toast.makeText(Register.this, "Signup successful. Sending verification email.", Toast.LENGTH_SHORT).show();
 
                                 mAuth.signOut();
+                                registered = 1;
+                            load.setVisibility(View.VISIBLE);
 
                         }
 
@@ -199,11 +198,12 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
 
                         }
                     });
-                    done();
+
                     //checkCurrentUser(mAuth.getCurrentUser());
                 } else {
                     // User is signed out
                     Log.d(TAG, "onAuthStateChanged:signed_outRR");
+                    done(registered);
                 }
                 // ...
             }
@@ -232,13 +232,14 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
         }
     }
 
-    private void done(){
-        Toast.makeText(Register.this, "Before Intent", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
-        finish();
-        Toast.makeText(Register.this, "After Finish", Toast.LENGTH_SHORT).show();
-
+    private void done(int onSignOut){
+        if(onSignOut == 1) {
+            //Toast.makeText(Register.this, "Before Intent", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+            //Toast.makeText(Register.this, "After Finish", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void addNewUser(String email, String fullname, long phone, String website, String profile_photo){

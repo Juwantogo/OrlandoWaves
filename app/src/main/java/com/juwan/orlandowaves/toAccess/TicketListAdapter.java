@@ -13,7 +13,6 @@ import android.widget.TextView;
 import com.juwan.orlandowaves.R;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import static android.content.ContentValues.TAG;
 
@@ -41,22 +40,26 @@ public class TicketListAdapter extends ArrayAdapter<Items> {
         View view = convertView;
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         view = inflater.inflate(R.layout.single_ticket_item, null);
-        TextView name = view.findViewById(R.id.name);
+        TextView name = view.findViewById(R.id.nameTV);
         TextView description = view.findViewById(R.id.description);
         TextView type = view.findViewById(R.id.type);
         TextView quantity = view.findViewById(R.id.quantity);
         TextView location = view.findViewById(R.id.location);
+        TextView price = view.findViewById(R.id.price);
 
 
-        name.setText("name: " + String.valueOf(items.get(position).getName()));
 
-        description.setText("description: " + String.valueOf(items.get(position).getDescription()));
+        name.setText(String.valueOf(items.get(position).getName()));
 
-        type.setText("type: " + String.valueOf(items.get(position).getType()));
-        location.setText("location: " + String.valueOf(items.get(position).getLocation()));
+        description.setText("Description: " + String.valueOf(items.get(position).getDescription()));
+
+        type.setText("Type: " + String.valueOf(items.get(position).getType()));
+        location.setText("Location: " + String.valueOf(items.get(position).getLocation()));
 
 
         quantity.setText("Quantity: " + String.valueOf(items.get(position).getQuantity()));
+        price.setText("Price: " + String.valueOf(items.get(position).getPrice()));
+
         Log.e(TAG, String.valueOf(items.get(position).getQuantity()));
 
 

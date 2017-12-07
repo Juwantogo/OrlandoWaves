@@ -1,6 +1,5 @@
 package com.juwan.orlandowaves.toAccess;
 
-import android.app.Fragment;
 import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
@@ -14,13 +13,12 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.juwan.orlandowaves.ActivityClass.Shop;
-import com.juwan.orlandowaves.Fragments.Cart;
-import com.juwan.orlandowaves.R;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.juwan.orlandowaves.toAccess.UniversalImageLoader;
+import com.juwan.orlandowaves.Fragments.Cart;
+import com.juwan.orlandowaves.R;
 
+import java.math.BigDecimal;
 
 import static android.content.ContentValues.TAG;
 
@@ -29,7 +27,7 @@ import static android.content.ContentValues.TAG;
  */
 
 public class CartListAdapter extends CursorAdapter{
-    private Double total = 0.0;
+    private BigDecimal total = BigDecimal.ZERO;
     private Boolean undoTotal = false;
    private Boolean resetView = false;
     OnButtonRemove monButtonRemove;
@@ -48,33 +46,37 @@ public class CartListAdapter extends CursorAdapter{
         }
 
         @Override
-        public void bindView(View view, Context context, Cursor cursor) {
+        public void bindView(View view, final Context context, Cursor cursor) {
             TextView Product = view.findViewById(R.id.product);
             ImageView Image = view.findViewById(R.id.image);
             TextView Description = view.findViewById(R.id.description);
             TextView Price = view.findViewById(R.id.price);
-            Spinner quantity = view.findViewById(R.id.quantitySP);
+            final Spinner quantity = view.findViewById(R.id.quantitySP);
             Button remove = view.findViewById(R.id.remove);
             //ImageLoader imageLoader=new ImageLoader(context.getApplicationContext());
 
             undoTotal = cursor.isFirst();
             if (undoTotal == true){
-                total = 0.00;
+                total = BigDecimal.ZERO;
                 undoTotal = false;
             }
             resetView = cursor.isLast();
             quantity.setTag(cursor.getString(cursor.getColumnIndexOrThrow("_id")));
 
             String currentPrice = cursor.getString(cursor.getColumnIndexOrThrow("finalprice"));
-            currentPrice = currentPrice.replace("$","");
-            Log.e(TAG, "PRICE*********: " + currentPrice);
-            Double dPrice = Double.parseDouble(currentPrice);
-            total = total + dPrice;
+            Currency currency = new Currency();
+            BigDecimal dPrice = currency.getBigDecimal(currentPrice);
+            Log.e(TAG, "check cartPrice " +  dPrice);
+
+            total = total.add(dPrice);
             //fragment.grabNewTotal();
 
             if(cursor.getString(cursor.getColumnIndexOrThrow("name")).equals("Single Game Ticket")){
-                Product.setText(cursor.getString(cursor.getColumnIndexOrThrow("_id")) + " - Date: " + cursor.getString(cursor.getColumnIndexOrThrow("date")) + " - Type: " + cursor.getString(cursor.getColumnIndexOrThrow("type")));
+                Product.setText("Date: " + cursor.getString(cursor.getColumnIndexOrThrow("date")) + " - Type: " + cursor.getString(cursor.getColumnIndexOrThrow("type")));
                 Description.setText("Event: " + cursor.getString(cursor.getColumnIndexOrThrow("event")) + " - vs " + cursor.getString(cursor.getColumnIndexOrThrow("opponent")));
+            }else{
+                Product.setText(cursor.getString(cursor.getColumnIndexOrThrow("name")) + " - Type: " + cursor.getString(cursor.getColumnIndexOrThrow("type")));
+                Description.setText("Description: " + cursor.getString(cursor.getColumnIndexOrThrow("event")));
             }
             Price.setText("Total: " + cursor.getString(cursor.getColumnIndexOrThrow("finalprice")));
             quantity.setSelection(Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow("quantity"))) - 1);
@@ -137,7 +139,7 @@ public void setButton(OnButtonRemove monButtonRemove){
     public interface OnButtonRemove{
         void onButtonRemove();
     }
-        public Double getTotal(){
+        public BigDecimal getTotal(){
             return total;
         }
 

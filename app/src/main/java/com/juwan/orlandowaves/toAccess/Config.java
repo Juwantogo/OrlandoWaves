@@ -6,7 +6,7 @@ package com.juwan.orlandowaves.toAccess;
 
 public class Config {
     //URL to our login.php file
-    public static final String LOGIN_URL = "http://70.127.41.113/OrlandoWaves/login.php"; //change once AWS is up
+    public static final String LOGIN_URL = ""; //change once AWS is up
 
     //Keys for email and password as defined in our $_POST['key'] in login.php
     public static final String KEY_EMAIL = "email";
@@ -33,4 +33,7 @@ public class Config {
 
     public static final String fbc = "FBC";
     public static final String auth = "auth";
+
+    ///REPLACE THIS WITH REAL PAYPAL ID
+    public static final String PAYPAL_CLIENT_ID = "AVR1Onz_IPH17O1Y0ImRkIjy8ZTHDXdT_6jqGIwZWFHiawYD6Wh4XnSWBBT8TBA7vWxlzGlIsXYy56kO";
 }

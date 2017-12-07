@@ -30,8 +30,19 @@
     <string name="itemPrice">pass_itemPrice</string>
     <string name="itemType">pass_itemType</string>
     <string name="currentActivity">current_Activity</string>
+    <string name="fbc">Welcome to the Fast Break Club! Enjoy 10% off Shop!</string>
+    <string name="notfbc">Join the Fast Break Club to Enjoy 10% off Shop and Admission to 2 games of your choice!</string>
+    <string name="userID">userID</string>
+    <string name="orderID">orderID</string>
+    <string name="cartID">cartID</string>
+    <string name="total">total</string>
 
+    <string name="scheduleFrag">Schedule Fragment</string>
+    <string name="rosFrag">Roster Fragment</string>
+    <string name="payFrag">Payment Fragment</string>
     <string name="shopFrag">Shop Fragment</string>
+    <string name="homeFrag">Home Fragment</string>
+    <string name="tixFrag">Tix Fragment</string>
     <string name="buyGameFrag">Buy Game Fragment</string>
     <string name="buyItemFrag">Buy Item Frag</string>
     <string name="showCart">Cart Frag</string>
@@ -53,4 +64,5 @@
         <item>Adult</item>
         <item>Youth</item>
     </string-array>
+    <string name="title_activity_fbcpush">FBCpush</string>
 </resources>

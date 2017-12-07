@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
-import android.widget.Toast;
 
 import com.juwan.orlandowaves.ActivityClass.Home;
 import com.juwan.orlandowaves.ActivityClass.Profile;
@@ -35,6 +34,7 @@ public class TabHelper {
                         intent1.putExtra("tabNum", tab.getPosition());
                         context.startActivity(intent1);
                         callingActivity.overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+
                         break;
                     case 1:
                         Intent intent2 = new Intent(context, Shop.class);

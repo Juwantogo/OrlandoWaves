@@ -11,9 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.juwan.orlandowaves.toAccess.Config;
 import com.juwan.orlandowaves.ActivityClass.LoginActivity;
 import com.juwan.orlandowaves.R;
+import com.juwan.orlandowaves.toAccess.Config;
 
 
 /**

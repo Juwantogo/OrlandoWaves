@@ -9,7 +9,15 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
-    tools:context="com.juwan.orlandowaves.com.juwan.orlandowaves.ActivityClass.Register">
+    tools:context="com.juwan.orlandowaves.ActivityClass.Register">
+
+    <ProgressBar
+        android:id="@+id/load"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        tools:visibility="gone" />
 
     <TextView
         android:text="Register"
@@ -125,6 +133,7 @@
                     android:id="@+id/pass"
                     android:layout_weight="1"
                     android:hint="********" />
+
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

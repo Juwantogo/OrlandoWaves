@@ -19,27 +19,32 @@ import com.juwan.orlandowaves.R;
 import java.util.ArrayList;
 
 /**
- * Created by Juwan on 10/26/2017.
+ * Created by Juwan on 12/6/2017.
  */
 
-public class GridAdapter extends BaseAdapter {
+public class ScheduleAdapter extends BaseAdapter {
     private Context mContext;
-    private final ArrayList<String> price;
-    private final ArrayList<String> ImageURLs;
+    private final ArrayList<String> time;
+    private final ArrayList<String> imgURLs;
+    private final ArrayList<String> opponent;
     private final ArrayList<String> name;
+    private final ArrayList<String> location;
+
     private ImageView imageView;
 
-    //adapter constructor context, imageurls, price, name -- passes all at the same position itt came from
-    public GridAdapter(Context c, ArrayList<String> price, ArrayList<String> name, ArrayList<String> ImageURLs) {
-        mContext = c;
-        this.ImageURLs = ImageURLs;
-        this.price = price;
+    public ScheduleAdapter(Context mContext, ArrayList<String> name, ArrayList<String> opponent, ArrayList<String> time, ArrayList<String> location, ArrayList<String> imgURLs) {
+        this.mContext = mContext;
+        this.opponent = opponent;
+        this.imgURLs = imgURLs;
+        this.time = time;
         this.name = name;
+        this.location = location;
     }
+
 
     @Override
     public int getCount() {
-        return price.size();
+        return name.size();
     }
 
     @Override
@@ -62,48 +67,50 @@ public class GridAdapter extends BaseAdapter {
         return getCount();
     }
 
-    //viewHolder to set Holder.visibility!!
     private static class ViewHolder {
 
         private ProgressBar mProgressBar;
-        private ImageView imageView;
+        private ImageView imgView;
+        private TextView locationTV;
+        private TextView opponentTV;
         private TextView nameTV;
-        private TextView priceTV;
+        private TextView timesTV;
     }
 
-
-    //for every item in list get position, convertview which is default empty on request, and parent
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View grid;
         LayoutInflater inflater = (LayoutInflater) mContext
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         //instantiate ViewHolder to holder
-        final ViewHolder holder;
+        final ScheduleAdapter.ViewHolder holder;
 
 
         if (convertView == null) {
-            holder = new ViewHolder();
+            holder = new ScheduleAdapter.ViewHolder();
             //grid = new View(mContext);
-            convertView = inflater.inflate(R.layout.custom_grid_single, null);
+            convertView = inflater.inflate(R.layout.single_schedule_game, null);
             holder.nameTV = convertView.findViewById(R.id.nameTV);
-            holder.priceTV = convertView.findViewById(R.id.price);
+            holder.opponentTV = convertView.findViewById(R.id.opponentTV);
+            holder.timesTV = convertView.findViewById(R.id.timesTV);
+            holder.locationTV = convertView.findViewById(R.id.locationTV);
             holder.mProgressBar = convertView.findViewById(R.id.progressBar);
-            holder.imageView = convertView.findViewById(R.id.productImage);
+            holder.imgView = convertView.findViewById(R.id.productImage);
 
             //set TVs to correct name and setTag of convert View
-            holder.priceTV.setText(price.get(position));
             holder.nameTV.setText(name.get(position));
+            holder.opponentTV.setText(opponent.get(position));
+            holder.timesTV.setText(time.get(position));
+            holder.locationTV.setText(location.get(position));
 
-
-            String ImageURL = ImageURLs.get(position);
+            String ImageURL = imgURLs.get(position);
 
             //new instance of imageloader, init with context, and displayImage in holder.imageView
             //if started so progressbar, failed/cancel hide progressbar & show default IMG from UIL,
             ImageLoader imageLoader = ImageLoader.getInstance();
             imageLoader.init(ImageLoaderConfiguration.createDefault(mContext));
             //Toast.makeText(mContext, ImageURL, Toast.LENGTH_SHORT).show();
-            imageLoader.displayImage(ImageURL,holder.imageView, new ImageLoadingListener() {
+            imageLoader.displayImage(ImageURL,holder.imgView, new ImageLoadingListener() {
                 @Override
                 public void onLoadingStarted(String imageUri, View view) {
                     if(holder.mProgressBar != null){
@@ -132,17 +139,15 @@ public class GridAdapter extends BaseAdapter {
                     }
                 }
             });
-
             convertView.setTag(holder);
         } else {
             //getTeag of convertView and make that the holder so holder = existing holder
-            holder = (ViewHolder) convertView.getTag();
+            holder = (ScheduleAdapter.ViewHolder) convertView.getTag();
         }
 
         //set string to correct image url by position
 
 
         //return convert view which contains all the previous set up things
-        return convertView;
-    }
+        return convertView;    }
 }

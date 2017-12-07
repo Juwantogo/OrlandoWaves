@@ -1,23 +1,12 @@
 package com.juwan.orlandowaves.ActivityClass;
 
 import android.content.Intent;
-import android.support.design.widget.TabLayout;
+import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.GridView;
-import android.widget.TextView;
 
-import com.juwan.orlandowaves.Fragments.ShopFragment;
 import com.juwan.orlandowaves.Fragments.TicketsFragment;
 import com.juwan.orlandowaves.R;
-import com.juwan.orlandowaves.TabChanger.TabHelper;
-
-import java.util.ArrayList;
 
 public class Tickets extends AppCompatActivity {
 
@@ -41,7 +30,7 @@ public class Tickets extends AppCompatActivity {
 
         FragmentTransaction transaction = Tickets.this.getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragContainer, fragment);
-        transaction.addToBackStack(getString(R.string.shopFrag));
+        transaction.addToBackStack(getString(R.string.tixFrag));
         transaction.commit();
 
     }

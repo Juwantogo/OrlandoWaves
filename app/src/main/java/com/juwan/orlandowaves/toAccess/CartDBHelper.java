@@ -5,9 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
-
-import static android.content.ContentValues.TAG;
 
 /**
  * Created by Juwan on 11/9/2017.
@@ -48,15 +45,7 @@ public class CartDBHelper extends SQLiteOpenHelper{
         onCreate(db);
     }
 
-    public boolean AddToCart(games game,String type, String price, String quantity) {
-        String holder = price;
-        price = price.replace("$","");
-        Log.e(TAG, "PRICE*********: " + price);
-        Double priceD = Double.parseDouble(price);
-        int quantityI = Integer.parseInt(quantity);
-        priceD = priceD * quantityI;
-        String fPrice = "$" + priceD;
-        price = holder;
+    public boolean AddToCart(games game,String type, String price,String fPrice, String quantity) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL_NAME,SINLGE);
@@ -77,6 +66,27 @@ public class CartDBHelper extends SQLiteOpenHelper{
             return true;
     }
 
+    public boolean AddItemsToCart(String name,String type, String description, String price,String fPrice, String quantity, String imgURL) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COL_NAME,SEASON);
+        contentValues.put(COL_OPPONENT,"");
+        contentValues.put(COL_DATE,"");
+        contentValues.put(COL_TYPE,name);
+        contentValues.put(COL_TIPOFF,"");
+        contentValues.put(COL_LOCATION,"");
+        contentValues.put(COL_QUANTITY, quantity);
+        contentValues.put(COL_EVENT,description);
+        contentValues.put(COL_PRICE,price);
+        contentValues.put(COL_fPRICE,fPrice);
+        contentValues.put(COL_URL,imgURL);
+        long result = db.insert(TABLE_NAME,null ,contentValues);
+        if(result == -1)
+            return false;
+        else
+            return true;
+    }
+
     public Cursor getAllData() {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor res = db.rawQuery("select * from "+TABLE_NAME,null);
@@ -87,16 +97,13 @@ public class CartDBHelper extends SQLiteOpenHelper{
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         //math
-        String justPrice = contentValues.getAsString(COL_PRICE);
+        String justPrice;
+        int quantityI = Integer.parseInt(quantity);
         Cursor getPriceString = db.rawQuery("select price from "+TABLE_NAME+" where _id = "+id,null);
         getPriceString.moveToFirst();
         justPrice = getPriceString.getString((getPriceString.getColumnIndexOrThrow("price")));
-        Log.e(TAG, "justPRICE*********: " + justPrice);
-        justPrice = justPrice.replace("$","");
-        Double priceD = Double.parseDouble(justPrice);
-        int quantityI = Integer.parseInt(quantity);
-        priceD = priceD * quantityI;
-        String fPrice = "$" + priceD;
+        Currency currency = new Currency();
+        String fPrice = currency.stringMultiply(justPrice,quantityI);
         //math
         contentValues.put(COL_QUANTITY,quantity);
         contentValues.put(COL_fPRICE,fPrice);
@@ -112,4 +119,9 @@ public class CartDBHelper extends SQLiteOpenHelper{
         SQLiteDatabase db = this.getWritableDatabase();
         return db.delete(TABLE_NAME, "_id = ?",new String[] {id});
     }
+    public Integer deleteALL () {
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.delete(TABLE_NAME, "1",null);
+    }
 }
+
